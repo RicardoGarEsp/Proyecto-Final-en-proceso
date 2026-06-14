@@ -1,4 +1,4 @@
-# Proyecto Final Diplomado Bases de Datos Relacionales y No Relacionales en un Entorno de Nube
+# Proyecto Final: Gestión y Análisis de Datos Relacionales en la Nube usando Global Superstore Orders 2016
 
 ## Resumen del Proyecto
 
