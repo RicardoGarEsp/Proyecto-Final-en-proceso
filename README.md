@@ -13,7 +13,7 @@
 | **SQL avanzado** | En proceso |
 | **Dashboard** | En proceso |
 
-## Objetivo de Negocio 
+## 🎯 Objetivo de Negocio 
 
 Se seleccionó el dataset **Global Superstore Orders 2016** debido a que representa un escenario empresarial realista donde se integran procesos de ventas, logística, clientes y productos. Este tipo de datos permite aplicar técnicas de Business Intelligence y análisis de datos para generar información valiosa para la toma de decisiones, identificando oportunidades de mejora en rentabilidad, segmentación de clientes y optimización de costos de envío.
 
@@ -26,7 +26,7 @@ Mediante análisis del dataset podemos reponder varias preguntas como lo pueden 
 - ¿Qué regiones presentan mejor desempeño comercial?
 - ¿Qué modos de envío generan mayores costos logísticos?
 
-## Descripción del Dataset inicial
+## 📊 Descripción del Dataset inicial
 
 | Campo | Descripción |
 |--------|-------------|
@@ -57,7 +57,7 @@ Mediante análisis del dataset podemos reponder varias preguntas como lo pueden 
 | Persona | Persona encargada de la región |
  ---
  
-## Modelo Estrella
+## ⭐ Modelo Estrella
 
 ```mermaid
 erDiagram
@@ -133,7 +133,7 @@ erDiagram
     DIM_PERSONA ||--o{ FACT_VENTAS : responsable
 ```
 
-## Diseño del Modelo Dimensional
+## 🧩 Diseño del Modelo Dimensional
 
 Para este proyecto se implementó un modelo dimensional tipo **Esquema de Estrella** debido a que es uno de los enfoques más utilizados en entornos de Business Intelligence y Data Warehousing. Este modelo facilita el análisis de grandes volúmenes de datos mediante la separación de los indicadores de negocio y los atributos descriptivos.
 
@@ -148,7 +148,7 @@ Por otro lado, las tablas de dimensión contienen información descriptiva que p
 - **Dim_Envio:** ayuda a evaluar la eficiencia logística y el impacto de los métodos de envío en la rentabilidad.
 - **Dim_Persona:** permite analizar el desempeño comercial por responsable regional.
 
-### Criterios de Diseño
+### 📋 Criterios de Diseño
 
 La separación de las dimensiones se realizó siguiendo los siguientes criterios:
 
