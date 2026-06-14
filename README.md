@@ -26,7 +26,7 @@ Mediante análisis del dataset podemos reponder varias preguntas como lo pueden 
 - ¿Qué regiones presentan mejor desempeño comercial?
 - ¿Qué modos de envío generan mayores costos logísticos?
 
-## Descripción del Dataset
+## Descripción del Dataset inicial
 
 | Campo | Descripción |
 |--------|-------------|
@@ -54,6 +54,7 @@ Mediante análisis del dataset podemos reponder varias preguntas como lo pueden 
 | Beneficio | Ganancia obtenida por la venta |
 | Costo de envío | Costo asociado al transporte del pedido |
 | Prioridad de pedido | Nivel de prioridad asignado al pedido |
+| Persona | Persona encargada de la región |
  ---
  
 ## Modelo Estrella
@@ -62,12 +63,16 @@ Mediante análisis del dataset podemos reponder varias preguntas como lo pueden 
 erDiagram
 
     FACT_VENTAS {
-        int id_pedido PK
-        int id_cliente FK
-        int id_producto FK
+        int id_fila PK
+        string id_pedido
+
+        string id_cliente FK
+        string id_producto FK
         int id_geografia FK
         int id_tiempo FK
         int id_envio FK
+        int id_persona FK
+
         decimal ventas
         int cantidad
         decimal descuento
@@ -76,13 +81,13 @@ erDiagram
     }
 
     DIM_CLIENTE {
-        int id_cliente PK
+        string id_cliente PK
         string nombre_cliente
         string segmento
     }
 
     DIM_PRODUCTO {
-        int id_producto PK
+        string id_producto PK
         string categoria
         string subcategoria
         string nombre_producto
@@ -114,11 +119,18 @@ erDiagram
         string prioridad_pedido
     }
 
+    DIM_PERSONA {
+        int id_persona PK
+        string persona
+        string region
+    }
+
     DIM_CLIENTE ||--o{ FACT_VENTAS : cliente
     DIM_PRODUCTO ||--o{ FACT_VENTAS : producto
     DIM_GEOGRAFIA ||--o{ FACT_VENTAS : geografia
     DIM_TIEMPO ||--o{ FACT_VENTAS : tiempo
     DIM_ENVIO ||--o{ FACT_VENTAS : envio
+    DIM_PERSONA ||--o{ FACT_VENTAS : responsable
 ```
 
 ## Diseño del Modelo Dimensional
@@ -134,12 +146,13 @@ Por otro lado, las tablas de dimensión contienen información descriptiva que p
 - **Dim_Geografia:** permite evaluar el desempeño comercial por ciudad, estado, país, región y mercado.
 - **Dim_Tiempo:** posibilita realizar análisis temporales, tendencias y comparaciones históricas.
 - **Dim_Envio:** ayuda a evaluar la eficiencia logística y el impacto de los métodos de envío en la rentabilidad.
+- **Dim_Persona:** permite analizar el desempeño comercial por responsable regional.
 
 ### Criterios de Diseño
 
 La separación de las dimensiones se realizó siguiendo los siguientes criterios:
 
-1. **Agrupación temática:** cada dimensión representa una entidad de negocio claramente identificable (cliente, producto, ubicación, tiempo y envío).
+1. **Agrupación temática:** cada dimensión representa una entidad de negocio claramente identificable (cliente, producto, ubicación, tiempo, envío y responsable).
 2. **Reducción de redundancia:** los atributos descriptivos se almacenan una sola vez y son reutilizados mediante claves foráneas.
 3. **Facilidad de análisis:** el modelo permite responder preguntas de negocio desde múltiples perspectivas sin realizar consultas complejas sobre una única tabla transaccional.
 4. **Escalabilidad:** facilita la incorporación futura de nuevas métricas o dimensiones sin afectar significativamente el modelo existente.
