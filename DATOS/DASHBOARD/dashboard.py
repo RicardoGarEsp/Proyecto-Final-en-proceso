@@ -1,11 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[5]:
-
-
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 
 # =====================================
 # CONFIGURACIÓN DE LA PÁGINA
@@ -19,10 +14,11 @@ st.set_page_config(
 st.title("📊 Dashboard Global Superstore")
 
 # =====================================
-# LEER ARCHIVO EXCEL
+# LEER ARCHIVO EXCEL (FORMA SEGURA)
 # =====================================
 
-archivo = "query.xlsx"
+BASE_DIR = Path(__file__).parent
+archivo = BASE_DIR / "query.xlsx"
 
 rentabilidad = pd.read_excel(
     archivo,
@@ -67,10 +63,3 @@ st.dataframe(desempeno_regiones, use_container_width=True)
 
 st.header("5. Costos logísticos por modo de envío")
 st.dataframe(costos_logisticos, use_container_width=True)
-
-
-# In[ ]:
-
-
-
-
