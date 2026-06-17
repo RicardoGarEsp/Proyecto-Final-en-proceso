@@ -22,7 +22,7 @@ st.title("📊 Dashboard Global Superstore")
 # LEER ARCHIVO EXCEL
 # =====================================
 
-archivo = "querys.xlsx"
+archivo = "query.xlsx"
 
 rentabilidad = pd.read_excel(
     archivo,
