@@ -1,6 +1,6 @@
 # Proyecto Final: Gestión y Análisis de Datos Relacionales en la Nube usando Global Superstore Orders 2016
 
-## Resumen del Proyecto
+## 🧾 Resumen del Proyecto
 
 | Campo | Descripción |
 |---------|-------------|
@@ -171,7 +171,7 @@ La separación de las dimensiones se realizó siguiendo los siguientes criterios
 4. **Escalabilidad:** facilita la incorporación futura de nuevas métricas o dimensiones sin afectar significativamente el modelo existente.
 
 
-## 🔍 SQL Avanzado 
+## ⛃ SQL Avanzado 
 
 ### 1. CTE + Ranking simple, ¿Qué productos generan la mayor rentabilidad?
 ```
@@ -333,3 +333,37 @@ ORDER BY
 
 ## 💻 Dashboard Interactivo
 https://proyecto-final-en-proceso-xttekccq9sfhkj8yhyfosz.streamlit.app
+
+## 🔎 Hallazgos importantes
+
+### 1. 🧭 Inconsistencia estructural en la región de Canadá (dato nativo del dataset)
+Durante la exploración inicial se identificó que la región de Canadá presenta una inconsistencia en su asignación organizacional, ya que no contaba con un responsable claramente definido dentro de la estructura original del dataset, no afecta los cálculos globales del modelo, ya que los agregados de ventas, beneficios y costos se mantienen consistentes. Sin embargo, sí representa una limitación estructural del dato original que podría influir en análisis más desagregados o en interpretaciones regionales específicas.
+
+### 2. 🌍 Concentración de la rentabilidad en pocas regiones
+La rentabilidad global está altamente concentrada en Europa Occidental y Asia Oriental, que juntas representan la mayor proporción del beneficio total, esto evidencia una dependencia del negocio en mercados específicos, lo que incrementa el riesgo ante fluctuaciones regionales.
+
+### 3. 📦 Desbalance entre categorías de producto
+Se observa un comportamiento desigual entre categorías:
+- Tecnología → mayor rentabilidad y eficiencia
+- Material de oficina → rendimiento estable y balanceado
+- Mobiliario → alto volumen de ventas, pero baja rentabilidad
+
+### 4. 💰 Dependencia de productos de alto valor unitario
+Los productos más rentables corresponden principalmente a tecnología y equipos corporativos de alto ticket, esto implica que el modelo de negocio está orientado principalmente a transacciones de alto valor más que a volumen masivo de ventas.
+
+### 5. 🚚 Crecimiento sostenido y volatilidad en costos logísticos
+Los costos logísticos presentan una tendencia creciente en el tiempo, acompañada de variaciones mensuales significativas, sugiere que el crecimiento en ventas está directamente impactando la estructura de costos sin una optimización proporcional en eficiencia logística.
+
+### 6. ⚡ Diferencias operativas por tipo de envío
+
+Cada modo de envío presenta un comportamiento distinto:
+- Clase estándar → mayor impacto en costos totales
+- Urgente → alta volatilidad y picos operativos
+- Segunda clase → comportamiento intermedio y estabilizador
+- Mismo día → bajo volumen pero alta complejidad operativa
+
+📌 Esto evidencia la necesidad de optimizar la planificación logística por tipo de servicio para reducir volatilidad y costos innecesarios.
+
+## 📚 Referencias
+- [Dataset inicial](https://www.kaggle.com/datasets/jaredrosas/global-superstore-orders-2016-es-esp)
+- Material del módulo, [Guía 02](https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/setup/02_dbeaver_conexion.md)
