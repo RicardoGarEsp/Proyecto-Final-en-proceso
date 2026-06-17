@@ -16,13 +16,13 @@
 ## 📁 Estructura del repositorio
 ```
 Proyecto-Final-en-proceso/
-├── README.md                           ← este archivo
+├── README.md                    ← este archivo
 ├── DATOS/
-    ├── etl+querys.md                   ← proceso etl y querys de SQL en entorno de python probando la conexión con Aurora
+    ├── etl+querys.md            ← proceso etl y querys de SQL en entorno de python probando la conexión con Aurora
     ├── DASHBOARD/                       
-        ├── dashboard.py                ← dashboard que cargará Streamlit
-        ├── requirements.txt            ← librerías que requiere Streamlit
-        └── query.xlsx                  ← datos fijos que se obtuvieron mediante las querys y ya no dependen de la conexión con Aurora
+        ├── dashboard.py         ← dashboard que cargará Streamlit
+        ├── requirements.txt     ← librerías que requiere Streamlit
+        └── query.xlsx           ← datos fijos que se obtuvieron mediante las querys y ya no dependen de la conexión con Aurora
 
 ```
 
