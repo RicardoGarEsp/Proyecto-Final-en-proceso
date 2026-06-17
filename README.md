@@ -13,6 +13,19 @@
 | **SQL Avanzado** | Implementación de consultas analíticas utilizando **CTE (Common Table Expressions)**, **funciones de ventana (Window Functions)**, **RANK()**, **LAG()**, **COUNT() FILTER** y **PERCENTILE_CONT()** para realizar rankings, promedios móviles, agregaciones condicionales, comparaciones temporales y análisis estadísticos sobre el modelo estrella. |
 | **Dashboard** | Dashboard interactivo basado en las querys propuestas |
 
+## 📁 Estructura del repositorio
+```
+Proyecto-Final-en-proceso/
+├── README.md                           ← este archivo
+├── DATOS/
+    ├── etl+querys.md                   ← proceso etl y querys de SQL en entorno de python
+    ├── DASHBOARD                       ← genera dim_date para 2023
+        ├── dashboard.py                ← dashboard que cargará Streamlit
+        ├── requirements.txt            ← librerías que requiere Streamlit
+        └── query.xlsx                  ← datos fijos que ya no dependen de la conexión con Aurora
+
+```
+
 ## 🎯 Objetivo de Negocio 
 
 Se seleccionó el dataset **Global Superstore Orders 2016** debido a que representa un escenario empresarial realista donde se integran procesos de ventas, logística, clientes y productos. Este tipo de datos permite aplicar técnicas de Business Intelligence y análisis de datos para generar información valiosa para la toma de decisiones, identificando oportunidades de mejora en rentabilidad, segmentación de clientes y optimización de costos de envío.
