@@ -54,7 +54,7 @@ st.line_chart(
 # 3. DESEMPEÑO REGIONAL
 # =====================================
 
-st.header("4. Desempeño por región")
+st.header("3. Desempeño por región")
 
 st.bar_chart(
     desempeno_regiones.set_index("Región")[["ventas_totales", "beneficio_total"]]
@@ -64,7 +64,7 @@ st.bar_chart(
 # 4. COSTOS LOGÍSTICOS
 # =====================================
 
-st.header("5. Costos logísticos")
+st.header("4. Costos logísticos")
 
 costos_logisticos["periodo"] = (
     costos_logisticos["anio"].astype(str) + "-" +
