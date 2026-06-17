@@ -366,4 +366,4 @@ Cada modo de envío presenta un comportamiento distinto:
 
 ## 📚 Referencias
 - [Dataset inicial](https://www.kaggle.com/datasets/jaredrosas/global-superstore-orders-2016-es-esp)
-- Material del módulo, [Guía 02](https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/setup/02_dbeaver_conexion.md)
+- Material del módulo: [Guía 02](https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/setup/02_dbeaver_conexion.md), [Tema 04](https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/tree/main/Tema-04), [rúbrica](https://github.com/OscarAlvarezC/diplomado-bi-unam-iimas/blob/main/anexos/rubrica_proyecto_final.md)
