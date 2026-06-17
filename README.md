@@ -19,7 +19,7 @@ Proyecto-Final-en-proceso/
 ├── README.md                           ← este archivo
 ├── DATOS/
     ├── etl+querys.md                   ← proceso etl y querys de SQL en entorno de python
-    ├── DASHBOARD                       ← genera dim_date para 2023
+    ├── DASHBOARD/                       
         ├── dashboard.py                ← dashboard que cargará Streamlit
         ├── requirements.txt            ← librerías que requiere Streamlit
         └── query.xlsx                  ← datos fijos que ya no dependen de la conexión con Aurora
