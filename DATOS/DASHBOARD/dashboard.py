@@ -18,7 +18,7 @@ st.title("📊 Dashboard Global Superstore")
 # =====================================
 
 BASE_DIR = Path(__file__).parent
-archivo = BASE_DIR / "querys.xlsx"
+archivo = BASE_DIR / "query.xlsx"
 
 rentabilidad = pd.read_excel(archivo, sheet_name="Rentabilidad_Productos")
 ventas_margenes = pd.read_excel(archivo, sheet_name="Ventas_vs_Margenes")
