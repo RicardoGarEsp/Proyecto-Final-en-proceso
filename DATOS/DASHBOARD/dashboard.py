@@ -18,7 +18,7 @@ st.title("📊 Dashboard Global Superstore")
 # =====================================
 
 BASE_DIR = Path(__file__).parent
-archivo = BASE_DIR / "query.xlsx"
+archivo = BASE_DIR / "querys.xlsx"
 
 rentabilidad = pd.read_excel(archivo, sheet_name="Rentabilidad_Productos")
 ventas_margenes = pd.read_excel(archivo, sheet_name="Ventas_vs_Margenes")
@@ -27,27 +27,23 @@ desempeno_regiones = pd.read_excel(archivo, sheet_name="Desempeno_Regiones")
 costos_logisticos = pd.read_excel(archivo, sheet_name="Costos_Logisticos")
 
 # =====================================
-# 1. RENTABILIDAD DE PRODUCTOS
+# 1. RENTABILIDAD
 # =====================================
 
-st.header("1. Rentabilidad de productos")
-
-st.dataframe(rentabilidad, use_container_width=True)
+st.header("1. Productos con mayor rentabilidad")
 
 st.bar_chart(
     rentabilidad.set_index("producto")["beneficio_total"]
 )
 
-st.write("Ranking de productos:")
-st.dataframe(rentabilidad[["producto", "ranking"]], use_container_width=True)
+with st.expander("📋 Ver tabla"):
+    st.dataframe(rentabilidad, use_container_width=True)
 
 # =====================================
 # 2. VENTAS VS MÁRGENES
 # =====================================
 
-st.header("2. Ventas vs Márgenes por categoría")
-
-st.dataframe(ventas_margenes, use_container_width=True)
+st.header("2. Ventas vs márgenes por categoría")
 
 st.bar_chart(
     ventas_margenes.set_index("Categoría")[["ventas_totales", "beneficio_total"]]
@@ -57,18 +53,14 @@ st.line_chart(
     ventas_margenes.set_index("Categoría")["margen"]
 )
 
-st.write("Promedio de ventas:")
-st.bar_chart(
-    ventas_margenes.set_index("Categoría")["promedio_ventas"]
-)
+with st.expander("📋 Ver tabla"):
+    st.dataframe(ventas_margenes, use_container_width=True)
 
 # =====================================
-# 3. IMPACTO DE DESCUENTOS
+# 3. IMPACTO DESCUENTOS
 # =====================================
 
 st.header("3. Impacto de los descuentos")
-
-st.dataframe(impacto_descuentos, use_container_width=True)
 
 st.bar_chart(
     impacto_descuentos.set_index("pedidos_sin_descuento")[
@@ -76,21 +68,21 @@ st.bar_chart(
     ]
 )
 
+with st.expander("📋 Ver tabla"):
+    st.dataframe(impacto_descuentos, use_container_width=True)
+
 # =====================================
 # 4. DESEMPEÑO REGIONAL
 # =====================================
 
 st.header("4. Desempeño por región")
 
-st.dataframe(desempeno_regiones, use_container_width=True)
-
 st.bar_chart(
     desempeno_regiones.set_index("Región")[["ventas_totales", "beneficio_total"]]
 )
 
-st.bar_chart(
-    desempeno_regiones.set_index("Región")["mediana_beneficio"]
-)
+with st.expander("📋 Ver tabla"):
+    st.dataframe(desempeno_regiones, use_container_width=True)
 
 # =====================================
 # 5. COSTOS LOGÍSTICOS
@@ -98,9 +90,6 @@ st.bar_chart(
 
 st.header("5. Costos logísticos")
 
-st.dataframe(costos_logisticos, use_container_width=True)
-
-# Crear columna de fecha simple
 costos_logisticos["periodo"] = (
     costos_logisticos["anio"].astype(str) + "-" +
     costos_logisticos["mes"].astype(str)
@@ -113,3 +102,6 @@ st.line_chart(
 st.line_chart(
     costos_logisticos.set_index("periodo")["variacion_mensual"]
 )
+
+with st.expander("📋 Ver tabla"):
+    st.dataframe(costos_logisticos, use_container_width=True)
