@@ -38,7 +38,7 @@ col3.metric("📊 Margen global", f"{margen_global:.2%}")
 st.divider()
 
 # =====================================
-# 1. RENTABILIDAD (TOP PRODUCTS)
+# 1. RENTABILIDAD
 # =====================================
 st.subheader("1. 🏆 Productos más rentables")
 
@@ -53,9 +53,9 @@ chart_prod = alt.Chart(top_prod).mark_bar().encode(
 st.altair_chart(chart_prod, use_container_width=True)
 
 # =====================================
-# 2. VENTAS VS MÁRGENES
+# 2. VENTAS VS MÁRGENES (CORREGIDO)
 # =====================================
-st.subheader("2. 📦 Ventas vs Márgenes")
+st.subheader("2. 📦 Ventas vs Márgenes por categoría")
 
 base = ventas_margenes.melt(
     id_vars="Categoría",
@@ -65,10 +65,10 @@ base = ventas_margenes.melt(
 )
 
 chart_cat = alt.Chart(base).mark_bar().encode(
-    x="Categoría:N",
+    x=alt.X("Categoría:N"),
+    xOffset="Indicador:N",   # ✅ CORRECTO EN ALTAIR
     y="Valor:Q",
     color="Indicador:N",
-    barmode="group",
     tooltip=["Categoría", "Indicador", "Valor"]
 ).properties(height=400)
 
@@ -98,7 +98,7 @@ chart_region = alt.Chart(desempeno_regiones).mark_bar().encode(
 st.altair_chart(chart_region, use_container_width=True)
 
 # =====================================
-# 4. COSTOS LOGÍSTICOS (TENDENCIA)
+# 4. COSTOS LOGÍSTICOS
 # =====================================
 st.subheader("4. 🚚 Costos logísticos en el tiempo")
 
