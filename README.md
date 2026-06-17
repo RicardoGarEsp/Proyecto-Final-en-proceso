@@ -8,7 +8,7 @@
 | **Dataset** | Global Superstore Orders 2016. Contiene información de pedidos, clientes, productos, ventas, descuentos, beneficios, costos de envío, mercados y regiones geográficas. |
 | **Fuente** | https://www.kaggle.com/datasets/jaredrosas/global-superstore-orders-2016-es-esp |
 | **Modelo** | Modelo dimensional tipo Star Schema con una tabla de hechos de ventas y dimensiones de Cliente, Producto, Tiempo y Geografía. |
-| **Infraestructura** | PostgreSQL para almacenamiento y consultas, con Power BI para la construcción de dashboards e indicadores de negocio. |
+| **Infraestructura** | PostgreSQL para almacenamiento y consultas, con Streamlit para la construcción de dashboards e indicadores de negocio. |
 | **ETL** | **Extract:** Extracción de los datos desde el archivo Excel *Global Superstore Orders 2016_es-ES.xlsx*.<br><br>**Transform:** Limpieza de fechas, eliminación de duplicados, construcción de dimensiones, generación de claves sustitutas, creación de la tabla de hechos y validación del modelo estrella.<br><br>**Load:** Exportación del modelo a Excel y carga del esquema **ecomerce_dwh** en PostgreSQL (AWS Aurora). |
 | **SQL Avanzado** | Implementación de consultas analíticas utilizando **CTE (Common Table Expressions)**, **funciones de ventana (Window Functions)**, **RANK()**, **LAG()**, **COUNT() FILTER** y **PERCENTILE_CONT()** para realizar rankings, promedios móviles, agregaciones condicionales, comparaciones temporales y análisis estadísticos sobre el modelo estrella. |
 | **Dashboard** | Dashboard interactivo basado en las querys propuestas |
