@@ -18,7 +18,7 @@
 Proyecto-Final-en-proceso/
 ├── README.md                           ← este archivo
 ├── DATOS/
-    ├── etl+querys.md                   ← proceso etl y querys de SQL en entorno de python
+    ├── etl+querys.md                   ← proceso etl y querys de SQL en entorno de python probando la conexión con Aurora
     ├── DASHBOARD/                       
         ├── dashboard.py                ← dashboard que cargará Streamlit
         ├── requirements.txt            ← librerías que requiere Streamlit
