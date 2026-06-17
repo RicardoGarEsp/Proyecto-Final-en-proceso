@@ -9,8 +9,8 @@
 | **Fuente** | https://www.kaggle.com/datasets/jaredrosas/global-superstore-orders-2016-es-esp |
 | **Modelo** | Modelo dimensional tipo Star Schema con una tabla de hechos de ventas y dimensiones de Cliente, Producto, Tiempo y Geografía. |
 | **Infraestructura** | PostgreSQL para almacenamiento y consultas, con Power BI para la construcción de dashboards e indicadores de negocio. |
-| **ETL** | En proceso |
-| **SQL avanzado** | En proceso |
+| **ETL** | **Extract:** Extracción de los datos desde el archivo Excel *Global Superstore Orders 2016_es-ES.xlsx*.<br><br>**Transform:** Limpieza de fechas, eliminación de duplicados, construcción de dimensiones, generación de claves sustitutas, creación de la tabla de hechos y validación del modelo estrella.<br><br>**Load:** Exportación del modelo a Excel y carga del esquema **ecomerce_dwh** en PostgreSQL (AWS Aurora). |
+| **SQL Avanzado** | Implementación de consultas analíticas utilizando **CTE (Common Table Expressions)**, **funciones de ventana (Window Functions)**, **RANK()**, **LAG()**, **COUNT() FILTER** y **PERCENTILE_CONT()** para realizar rankings, promedios móviles, agregaciones condicionales, comparaciones temporales y análisis estadísticos sobre el modelo estrella. |
 | **Dashboard** | En proceso |
 
 ## 🎯 Objetivo de Negocio 
@@ -156,3 +156,164 @@ La separación de las dimensiones se realizó siguiendo los siguientes criterios
 2. **Reducción de redundancia:** los atributos descriptivos se almacenan una sola vez y son reutilizados mediante claves foráneas.
 3. **Facilidad de análisis:** el modelo permite responder preguntas de negocio desde múltiples perspectivas sin realizar consultas complejas sobre una única tabla transaccional.
 4. **Escalabilidad:** facilita la incorporación futura de nuevas métricas o dimensiones sin afectar significativamente el modelo existente.
+
+
+## 🔍 SQL Avanzado 
+
+### 1. CTE + Ranking simple, ¿Qué productos generan la mayor rentabilidad?
+```
+WITH rentabilidad_producto AS (
+
+    SELECT
+        dp."Nombre de producto" AS producto,
+        SUM(fv."Beneficio") AS beneficio_total
+
+    FROM ecomerce_dwh.fact_ventas fv
+    JOIN ecomerce_dwh.dim_producto dp
+        ON fv."ID de producto" = dp."ID de producto"
+
+    GROUP BY dp."Nombre de producto"
+
+)
+
+SELECT
+    producto,
+    beneficio_total,
+    RANK() OVER(ORDER BY beneficio_total DESC) AS ranking
+
+FROM rentabilidad_producto
+
+ORDER BY ranking
+LIMIT 10;
+```
+
+### 2. Window Function, ¿Qué categorías tienen mayores ventas pero menores márgenes?
+```
+SELECT
+
+    dp."Categoría",
+
+    SUM(fv."Ventas") AS ventas_totales,
+
+    SUM(fv."Beneficio") AS beneficio_total,
+
+    ROUND(
+        (
+            SUM(fv."Beneficio") /
+            NULLIF(SUM(fv."Ventas"),0)
+        )::numeric,
+        4
+    ) AS margen,
+
+    AVG(SUM(fv."Ventas")) OVER() AS promedio_ventas
+
+FROM ecomerce_dwh.fact_ventas fv
+
+JOIN ecomerce_dwh.dim_producto dp
+ON fv."ID de producto" = dp."ID de producto"
+
+GROUP BY dp."Categoría"
+
+ORDER BY ventas_totales DESC;
+```
+
+### 3. COUNT FILTER, ¿Cómo impactan los descuentos en el beneficio final?
+```
+SELECT
+
+    COUNT(*) FILTER (
+        WHERE "Descuento" = 0
+    ) AS pedidos_sin_descuento,
+
+    COUNT(*) FILTER (
+        WHERE "Descuento" > 0
+    ) AS pedidos_con_descuento,
+
+    AVG("Beneficio") FILTER (
+        WHERE "Descuento" = 0
+    ) AS beneficio_promedio_sin_descuento,
+
+    AVG("Beneficio") FILTER (
+        WHERE "Descuento" > 0
+    ) AS beneficio_promedio_con_descuento
+
+FROM ecomerce_dwh.fact_ventas;
+```
+
+### 4. PERCENTILE_CONT, ¿Qué regiones presentan mejor desempeño comercial?
+```
+SELECT
+
+    dg."Región",
+
+    SUM(fv."Ventas") AS ventas_totales,
+
+    SUM(fv."Beneficio") AS beneficio_total,
+
+    PERCENTILE_CONT(0.5)
+    WITHIN GROUP (
+        ORDER BY fv."Beneficio"
+    ) AS mediana_beneficio
+
+FROM ecomerce_dwh.fact_ventas fv
+
+JOIN ecomerce_dwh.dim_geografia dg
+ON fv.id_geografia = dg.id_geografia
+
+GROUP BY dg."Región"
+
+ORDER BY beneficio_total DESC;
+```
+
+### 5. CTE + LAG(), ¿Qué modos de envío generan mayores costos logísticos?
+```
+WITH costos_envio AS (
+
+    SELECT
+
+        dt.anio,
+        dt.mes,
+        de."Modo de envío" AS modo_envio,
+
+        SUM(fv."Costo de envío") AS costo_total
+
+    FROM ecomerce_dwh.fact_ventas fv
+
+    JOIN ecomerce_dwh.dim_envio de
+        ON fv.id_envio = de.id_envio
+
+    JOIN ecomerce_dwh.dim_tiempo dt
+        ON fv.id_tiempo = dt.id_tiempo
+
+    GROUP BY
+        dt.anio,
+        dt.mes,
+        de."Modo de envío"
+
+)
+
+SELECT
+
+    anio,
+    mes,
+    modo_envio,
+    costo_total,
+
+    LAG(costo_total) OVER (
+        PARTITION BY modo_envio
+        ORDER BY anio, mes
+    ) AS costo_mes_anterior,
+
+    costo_total -
+    LAG(costo_total) OVER (
+        PARTITION BY modo_envio
+        ORDER BY anio, mes
+    ) AS variacion_mensual
+
+FROM costos_envio
+
+ORDER BY
+    modo_envio,
+    anio,
+    mes;
+```
