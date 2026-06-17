@@ -22,7 +22,7 @@ Proyecto-Final-en-proceso/
     ├── DASHBOARD/                       
         ├── dashboard.py                ← dashboard que cargará Streamlit
         ├── requirements.txt            ← librerías que requiere Streamlit
-        └── query.xlsx                  ← datos fijos que ya no dependen de la conexión con Aurora
+        └── query.xlsx                  ← datos fijos que se obtuvieron mediante las querys y ya no dependen de la conexión con Aurora
 
 ```
 
