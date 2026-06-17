@@ -36,9 +36,6 @@ st.bar_chart(
     rentabilidad.set_index("producto")["beneficio_total"]
 )
 
-with st.expander("📋 Ver tabla"):
-    st.dataframe(rentabilidad, use_container_width=True)
-
 # =====================================
 # 2. VENTAS VS MÁRGENES
 # =====================================
@@ -53,26 +50,8 @@ st.line_chart(
     ventas_margenes.set_index("Categoría")["margen"]
 )
 
-with st.expander("📋 Ver tabla"):
-    st.dataframe(ventas_margenes, use_container_width=True)
-
 # =====================================
-# 3. IMPACTO DESCUENTOS
-# =====================================
-
-st.header("3. Impacto de los descuentos")
-
-st.bar_chart(
-    impacto_descuentos.set_index("pedidos_sin_descuento")[
-        ["beneficio_promedio_sin_descuento", "beneficio_promedio_con_descuento"]
-    ]
-)
-
-with st.expander("📋 Ver tabla"):
-    st.dataframe(impacto_descuentos, use_container_width=True)
-
-# =====================================
-# 4. DESEMPEÑO REGIONAL
+# 3. DESEMPEÑO REGIONAL
 # =====================================
 
 st.header("4. Desempeño por región")
@@ -81,11 +60,8 @@ st.bar_chart(
     desempeno_regiones.set_index("Región")[["ventas_totales", "beneficio_total"]]
 )
 
-with st.expander("📋 Ver tabla"):
-    st.dataframe(desempeno_regiones, use_container_width=True)
-
 # =====================================
-# 5. COSTOS LOGÍSTICOS
+# 4. COSTOS LOGÍSTICOS
 # =====================================
 
 st.header("5. Costos logísticos")
@@ -98,10 +74,3 @@ costos_logisticos["periodo"] = (
 st.line_chart(
     costos_logisticos.set_index("periodo")["costo_total"]
 )
-
-st.line_chart(
-    costos_logisticos.set_index("periodo")["variacion_mensual"]
-)
-
-with st.expander("📋 Ver tabla"):
-    st.dataframe(costos_logisticos, use_container_width=True)
